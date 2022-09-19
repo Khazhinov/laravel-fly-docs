@@ -9,6 +9,14 @@
 
 В разработке
 
+## Установка
+
+Для установки использовать:
+
+```bash
+$ composer require khazhinov/laravel-fly-docs
+```
+
 
 ## Лицензия
 
