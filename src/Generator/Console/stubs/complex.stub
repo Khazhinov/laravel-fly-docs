@@ -4,6 +4,7 @@ namespace DummyNamespace;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
 use Khazhinov\LaravelFlyDocs\Generator\Factories\ComplexFactory;
+use Khazhinov\LaravelFlyDocs\Generator\Factories\ComplexFactoryResult;
 
 class DummyClass extends ComplexFactory
 {
