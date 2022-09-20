@@ -1,0 +1,22 @@
+<?php
+
+namespace DummyNamespace;
+
+use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
+use Khazhinov\LaravelFlyDocs\Generator\Factories\ComplexFactory;
+
+class DummyClass extends ComplexFactory
+{
+    /**
+     * @param  mixed  ...$arguments
+     * @return ComplexFactoryResult
+     */
+    public function build(...$arguments): ComplexFactoryResult
+    {
+        $complex_result = new ComplexFactoryResult();
+
+        // Добавить требуемое
+
+        return $complex_result;
+    }
+}

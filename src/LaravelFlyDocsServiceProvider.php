@@ -13,6 +13,7 @@ use Khazhinov\LaravelFlyDocs\Generator\Builders\PathsBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\ServersBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\TagsBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Console\CallbackFactoryMakeCommand;
+use Khazhinov\LaravelFlyDocs\Generator\Console\ComplexFactoryMakeCommand;
 use Khazhinov\LaravelFlyDocs\Generator\Console\ExtensionFactoryMakeCommand;
 use Khazhinov\LaravelFlyDocs\Generator\Console\GenerateCommand;
 use Khazhinov\LaravelFlyDocs\Generator\Console\ParametersFactoryMakeCommand;
@@ -89,6 +90,7 @@ class LaravelFlyDocsServiceProvider extends ServiceProvider
         $this->app->bind('command.fly-docs:make-response', ResponseFactoryMakeCommand::class);
         $this->app->bind('command.fly-docs:make-schema', SchemaFactoryMakeCommand::class);
         $this->app->bind('command.fly-docs:make-security-scheme', SecuritySchemeFactoryMakeCommand::class);
+        $this->app->bind('command.fly-docs:make-complex', ComplexFactoryMakeCommand::class);
 
         $this->commands([
             'command.fly-docs:make-callback',
@@ -99,6 +101,7 @@ class LaravelFlyDocsServiceProvider extends ServiceProvider
             'command.fly-docs:make-response',
             'command.fly-docs:make-schema',
             'command.fly-docs:make-security-scheme',
+            'command.fly-docs:make-complex',
         ]);
     }
 }

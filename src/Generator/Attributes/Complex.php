@@ -14,7 +14,7 @@ class Complex
 
     public function __construct(string $factory, ...$arguments)
     {
-        $this->factory = class_exists($factory) ? $factory : app()->getNamespace().'OpenApi\\Complex\\'.$factory;
+        $this->factory = class_exists($factory) ? $factory : app()->getNamespace().'OpenApi\\Complexes\\'.$factory;
 
         if (! is_a($this->factory, ComplexFactory::class, true)) {
             throw new InvalidArgumentException('Factory class must be instance of ComplexFactory');

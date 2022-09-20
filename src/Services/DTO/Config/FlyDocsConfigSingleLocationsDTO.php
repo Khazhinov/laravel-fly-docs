@@ -36,6 +36,11 @@ class FlyDocsConfigSingleLocationsDTO extends DataTransferObject
     public array $security_schemes = [];
 
     /**
+     * @var array<string>
+     */
+    public array $complexes = [];
+
+    /**
      * @param  string  $type
      * @return array
      * @throws RuntimeException

@@ -141,6 +141,10 @@ return [
             'security_schemes' => [
                 app_path('OpenApi/SecuritySchemes'),
             ],
+
+            'complexes' => [
+                app_path('OpenApi/Complexes'),
+            ],
         ],
     ],
 ];
