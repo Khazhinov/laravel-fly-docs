@@ -6,7 +6,7 @@ namespace Khazhinov\LaravelFlyDocs\Services;
 
 use Khazhinov\LaravelFlyDocs\Services\DTO\Config\FlyDocsConfigDTO;
 use Khazhinov\LaravelFlyDocs\Services\DTO\Config\FlyDocsConfigSingleDTO;
-use Khazhinov\LaravelLighty\Patterns\Singleton;
+use Khazhinov\PhpSupport\Patterns\Singleton;
 use ReflectionException;
 use RuntimeException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;

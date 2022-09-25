@@ -22,6 +22,8 @@
     "ext-fileinfo": "*",
     "ext-json": "*",
     "ext-sodium": "*",
+    "doctrine/dbal": "^2.6|^3.0",
+    "goldspecdigital/oooas": "^2.7.1",
     "illuminate/bus": "^9",
     "illuminate/config": "^9",
     "illuminate/console": "^9",
@@ -29,13 +31,11 @@
     "illuminate/http": "^9",
     "illuminate/pipeline": "^9",
     "illuminate/support": "^9",
-    "khazhinov/laravel-lighty": "^1.6.10",
-    "spatie/data-transfer-object": "^3.8",
-    "symfony/console": "^6.1",
-    "doctrine/dbal": "^2.6|^3.0",
-    "goldspecdigital/oooas": "^2.7.1",
+    "khazhinov/php-support": "^1.0",
     "phpdocumentor/reflection-docblock": "^5.0",
-    "swagger-api/swagger-ui": "^3.0 || ^4.0"
+    "spatie/data-transfer-object": "^3.8",
+    "swagger-api/swagger-ui": "^3.0 || ^4.0",
+    "symfony/console": "^6.1"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.11",

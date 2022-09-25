@@ -44,13 +44,13 @@ class OperationsBuilder
         foreach ($routes as $route) {
             /** @var OperationAttribute|null $operationAttribute */
             $operationAttribute = $route->actionAttributes
-                ->first(static fn(object $attribute) => $attribute instanceof OperationAttribute);
+                ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
 
             $operationId = optional($operationAttribute)->id;
             $tags = $operationAttribute->tags ?? [];
             $servers = collect($operationAttribute->servers ?? [])
-                ->filter(fn($server) => app($server) instanceof ServerFactory)
-                ->map(static fn($server) => app($server)->build())
+                ->filter(fn ($server) => app($server) instanceof ServerFactory)
+                ->map(static fn ($server) => app($server)->build())
                 ->toArray();
 
             $parameters = $this->parametersBuilder->build($route);

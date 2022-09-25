@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Khazhinov\LaravelFlyDocs\Services\DTO\Config;
 
-use Khazhinov\LaravelLighty\DTO\DataTransferObject;
-use Khazhinov\LaravelLighty\DTO\Validation\ArrayOfScalar;
-use Khazhinov\LaravelLighty\Enums\ScalarTypeEnum;
+use Khazhinov\PhpSupport\DTO\DataTransferObject;
+use Khazhinov\PhpSupport\DTO\Validation\ArrayOfScalar;
+use Khazhinov\PhpSupport\Enums\ScalarTypeEnum;
 
 class FlyDocsConfigSinglePathsDTO extends DataTransferObject
 {

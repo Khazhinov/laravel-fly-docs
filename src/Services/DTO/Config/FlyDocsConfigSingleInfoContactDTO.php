@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Khazhinov\LaravelFlyDocs\Services\DTO\Config;
 
-use Khazhinov\LaravelLighty\DTO\DataTransferObject;
+use Khazhinov\PhpSupport\DTO\DataTransferObject;
 
 class FlyDocsConfigSingleInfoContactDTO extends DataTransferObject
 {

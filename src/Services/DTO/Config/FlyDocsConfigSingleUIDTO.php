@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Khazhinov\LaravelFlyDocs\Services\DTO\Config;
 
-use Khazhinov\LaravelLighty\DTO\Custer\EnumCaster;
-use Khazhinov\LaravelLighty\DTO\DataTransferObject;
+use Khazhinov\PhpSupport\DTO\Custer\EnumCaster;
+use Khazhinov\PhpSupport\DTO\DataTransferObject;
 use Spatie\DataTransferObject\Attributes\CastWith;
 
 /**

@@ -2,8 +2,6 @@
 
 namespace Khazhinov\LaravelFlyDocs\Generator\Factories;
 
-use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
-
 class ComplexFactoryResult
 {
     public mixed $request_body = null;

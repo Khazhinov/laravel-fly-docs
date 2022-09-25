@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Khazhinov\LaravelFlyDocs\Services\DTO\Config;
 
 use Illuminate\Support\Collection;
-use Khazhinov\LaravelLighty\DTO\DataTransferObject;
+use Khazhinov\PhpSupport\DTO\DataTransferObject;
 use RuntimeException;
 
 class FlyDocsConfigSingleLocationsDTO extends DataTransferObject
