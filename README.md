@@ -1,7 +1,7 @@
 
 <p align="center"><img src="/art/header.jpg" alt="Social Card of Laravel FlyDocs"></p>
 
-# Laravel FlyDocs
+# Laravel FlyDocs 📚
 
 Библиотека для формирования документации по стандарту OpenApi 3.0 в экосистеме Laravel со встроенным UI
 
