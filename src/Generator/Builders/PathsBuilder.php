@@ -26,17 +26,6 @@ class PathsBuilder
     public function build(FlyDocsConfigDTO $config, string $documentation): array
     {
         return $this->routes($config->documentations[$documentation])
-            ->filter(static function (RouteInformation $routeInformation) use ($config, $documentation) {
-                /** @var CollectionAttribute|null $collectionAttribute */
-                $collectionAttribute = collect()
-                    ->merge($routeInformation->controllerAttributes)
-                    ->merge($routeInformation->actionAttributes)
-                    ->first(static fn (object $item) => $item instanceof CollectionAttribute);
-
-                return
-                    (! $collectionAttribute && $documentation === $config->default) ||
-                    ($collectionAttribute && in_array($documentation, $collectionAttribute->name, true));
-            })
             ->groupBy(static fn (RouteInformation $routeInformation) => $routeInformation->uri)
             ->map(function (Collection $routes, $uri) {
                 $pathItem = PathItem::create()->route($uri);
