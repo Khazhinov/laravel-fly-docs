@@ -86,7 +86,7 @@ class OperationsBuilder
                 ->action(Str::lower($operationAttribute->method) ?: $route->method)
                 ->tags(...$tags)
                 ->description($route->actionDocBlock?->getDescription()->render() !== '' ? $route->actionDocBlock?->getDescription()->render() : null)
-                ->summary($route->actionDocBlock?->getSummary() !== '' ? $route->actionDocBlock->getSummary() : null)
+                ->summary($route->actionDocBlock?->getSummary() !== '' ? $route->actionDocBlock?->getSummary() : null)
                 ->operationId($operationId)
                 ->parameters(...$parameters)
                 ->responses(...$responses)
