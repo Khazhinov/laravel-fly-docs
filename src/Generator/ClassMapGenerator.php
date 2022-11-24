@@ -12,7 +12,7 @@ class ClassMapGenerator
      * Iterate over all files in the given directory searching for classes.
      *
      * @param  Iterator|string  $dir  The directory to search in or an iterator
-     * @return array A class map array
+     * @return array<string, string> A class map array
      */
     public static function createMap(Iterator|string $dir): array
     {
@@ -52,10 +52,11 @@ class ClassMapGenerator
      * Extract the classes in the given file.
      *
      * @param  string  $path  The file to check
-     * @return array The found classes
+     * @return array<string> The found classes
      */
     private static function findClasses(string $path): array
     {
+        /** @var string $contents */
         $contents = file_get_contents($path);
         $tokens = token_get_all($contents);
 

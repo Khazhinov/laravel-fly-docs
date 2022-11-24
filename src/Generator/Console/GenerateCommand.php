@@ -1,12 +1,16 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Khazhinov\LaravelFlyDocs\Generator\Console;
 
 use Illuminate\Console\Command;
 use Khazhinov\LaravelFlyDocs\Generator\Generator;
 
+/**
+ * @template TKey of array-key
+ * @template TValue
+ */
 class GenerateCommand extends Command
 {
     protected $signature = 'fly-docs:generate {collection=default}';
@@ -14,17 +18,22 @@ class GenerateCommand extends Command
 
     public function handle(Generator $generator): void
     {
-        $collectionExists = collect(config('openapi.collections'))->has($this->argument('collection'));
+        /** @var array<mixed> $collections */
+        $collections = config('openapi.collections');
+
+        /** @var string $collection */
+        $collection = $this->argument('collection');
+        $collectionExists = collect($collections)->has($collection);
 
         if (! $collectionExists) {
-            $this->error('Collection "'.$this->argument('collection').'" does not exist.');
+            $this->error(sprintf('Collection "%s" does not exist.', $collection));
 
             return;
         }
 
         $this->line(
             $generator
-                ->generate($this->argument('collection'))
+                ->generate($collection)
                 ->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
         );
     }

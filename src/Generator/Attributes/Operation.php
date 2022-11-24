@@ -15,18 +15,19 @@ class Operation
     public array $tags;
 
     public ?string $security;
-
     public ?string $method;
 
+    /**
+     * @var array<string, mixed>|null
+     */
     public ?array $servers;
 
     /**
      * @param  string|null  $id
-     * @param  array  $tags
-     * @param  \Khazhinov\LaravelFlyDocs\Generator\Factories\SecuritySchemeFactory|string|null  $security
+     * @param  array<string>  $tags
+     * @param  string|null  $security
      * @param  string|null  $method
-     *
-     * @throws InvalidArgumentException
+     * @param  array<string, mixed>|null  $servers
      */
     public function __construct(string $id = null, array $tags = [], string $security = null, string $method = null, array $servers = null)
     {

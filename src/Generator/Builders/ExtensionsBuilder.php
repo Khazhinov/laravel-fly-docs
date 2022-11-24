@@ -7,8 +7,17 @@ use Illuminate\Support\Collection;
 use Khazhinov\LaravelFlyDocs\Generator\Attributes\Extension as ExtensionAttribute;
 use Khazhinov\LaravelFlyDocs\Generator\Factories\ExtensionFactory;
 
+/**
+ * @template TKey of array-key
+ * @template TValue
+ */
 class ExtensionsBuilder
 {
+    /**
+     * @param  BaseObject  $object
+     * @param  Collection<TKey, TValue>  $attributes
+     * @return void
+     */
     public function build(BaseObject $object, Collection $attributes): void
     {
         $attributes
@@ -23,6 +32,8 @@ class ExtensionsBuilder
                     $key = $attribute->key;
                     $value = $attribute->value;
                 }
+
+                /** @var string $key */
 
                 $object->x(
                     $key,

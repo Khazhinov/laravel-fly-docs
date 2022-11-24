@@ -8,6 +8,11 @@ use Khazhinov\LaravelFlyDocs\Services\DTO\Config\FlyDocsConfigDTO;
 
 class ResponsesBuilder extends Builder
 {
+    /**
+     * @param  FlyDocsConfigDTO  $config
+     * @param  string  $documentation
+     * @return array<mixed>
+     */
     public function build(FlyDocsConfigDTO $config, string $documentation): array
     {
         return $this->getAllClasses('responses', $config, $documentation)

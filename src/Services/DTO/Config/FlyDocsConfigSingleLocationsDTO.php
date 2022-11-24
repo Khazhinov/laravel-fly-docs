@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Khazhinov\LaravelFlyDocs\Services\DTO\Config;
 
@@ -42,7 +42,7 @@ class FlyDocsConfigSingleLocationsDTO extends DataTransferObject
 
     /**
      * @param  string  $type
-     * @return array
+     * @return array<string>
      * @throws RuntimeException
      */
     public function getClearDirectoriesByType(string $type): array

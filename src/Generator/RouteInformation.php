@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Khazhinov\LaravelFlyDocs\Generator;
 
 use Attribute;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -15,17 +16,20 @@ use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
 
-class RouteInformation
+/**
+ * @template TKey of array-key
+ * @template TValue
+ */
+final class RouteInformation
 {
     public ?string $domain;
     public string $method;
     public string $uri;
     public ?string $name;
     public string $controller;
-
     public Collection $parameters;
 
-    /** @var Collection|Attribute[] */
+    /** @var Collection<TKey, TValue>|Attribute[] */
     public Collection|array $controllerAttributes;
 
     public string $action;
@@ -33,7 +37,7 @@ class RouteInformation
     /** @var ReflectionParameter[] */
     public array $actionParameters;
 
-    /** @var Collection|Attribute[] */
+    /** @var Collection<TKey, TValue>|Attribute[] */
     public Collection|array $actionAttributes;
 
     public ?DocBlock $actionDocBlock;
@@ -47,6 +51,10 @@ class RouteInformation
     public static function createFromRoute(Route $route): RouteInformation
     {
         return tap(new static(), static function (self $instance) use ($route): void {
+            /** @var string $domain */
+            $domain = $route->domain();
+
+            /** @var string $method */
             $method = collect($route->methods())
                 ->map(static fn ($value) => Str::lower($value))
                 ->filter(static fn ($value) => ! in_array($value, ['head', 'options'], true))
@@ -62,7 +70,9 @@ class RouteInformation
             }
 
             preg_match_all('/{(.*?)}/', $route->uri, $parameters);
-            $parameters = collect($parameters[1]);
+            /** @var Arrayable<TKey, TValue>|iterable<TKey, TValue>|null $_ */
+            $_ = $parameters[1];
+            $parameters = collect($_);
 
             if (count($parameters) > 0) {
                 $parameters = $parameters->map(static fn ($parameter) => [
@@ -71,21 +81,24 @@ class RouteInformation
                 ]);
             }
 
+            /** @var class-string $controller */
             $reflectionClass = new ReflectionClass($controller);
             $reflectionMethod = $reflectionClass->getMethod($action);
 
             $docComment = $reflectionMethod->getDocComment();
             $docBlock = $docComment ? DocBlockFactory::createInstance()->create($docComment) : null;
 
+            /** @var Collection|Attribute[] $controllerAttributes */
             $controllerAttributes = collect($reflectionClass->getAttributes())
                 ->map(fn (ReflectionAttribute $attribute) => $attribute->newInstance());
 
+            /** @var Collection|Attribute[] $actionAttributes */
             $actionAttributes = collect($reflectionMethod->getAttributes())
                 ->map(fn (ReflectionAttribute $attribute) => $attribute->newInstance());
 
             $containsControllerLevelParamter = $actionAttributes->contains(fn ($value) => $value instanceof \Khazhinov\LaravelFlyDocs\Generator\Attributes\Parameters);
 
-            $instance->domain = $route->domain();
+            $instance->domain = $domain;
             $instance->method = $method;
             $instance->uri = Str::start($route->uri(), '/');
             $instance->name = $route->getName();

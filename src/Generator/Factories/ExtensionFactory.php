@@ -7,7 +7,7 @@ abstract class ExtensionFactory
     abstract public function key(): string;
 
     /**
-     * @return string|null|array
+     * @return string|null|array<mixed>
      */
-    abstract public function value();
+    abstract public function value(): string|array|null;
 }

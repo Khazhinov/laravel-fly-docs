@@ -17,6 +17,10 @@ use Khazhinov\LaravelFlyDocs\Generator\Builders\Paths\Operation\SecurityBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Factories\ServerFactory;
 use Khazhinov\LaravelFlyDocs\Generator\RouteInformation;
 
+/**
+ * @template TKey of array-key
+ * @template TValue
+ */
 class OperationsBuilder
 {
     public function __construct(
@@ -31,8 +35,8 @@ class OperationsBuilder
     }
 
     /**
-     * @param  RouteInformation[]|Collection  $routes
-     * @return array
+     * @param  RouteInformation[]|Collection<TKey, TValue>  $routes
+     * @return array<mixed>
      *
      * @throws InvalidArgumentException
      */
@@ -42,8 +46,10 @@ class OperationsBuilder
 
         /** @var RouteInformation[] $routes */
         foreach ($routes as $route) {
-            /** @var OperationAttribute|null $operationAttribute */
-            $operationAttribute = $route->actionAttributes
+            /** @var Collection $route_attributes */
+            $route_attributes = $route->actionAttributes;
+            /** @var OperationAttribute $operationAttribute */
+            $operationAttribute = $route_attributes
                 ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
 
             $operationId = optional($operationAttribute)->id;
@@ -82,8 +88,11 @@ class OperationsBuilder
                 }
             }
 
+            /** @var string $method */
+            $method = $operationAttribute->method;
+
             $operation = Operation::create()
-                ->action(Str::lower($operationAttribute->method) ?: $route->method)
+                ->action(Str::lower($method) ?: $route->method)
                 ->tags(...$tags)
                 ->description($route->actionDocBlock?->getDescription()->render() !== '' ? $route->actionDocBlock?->getDescription()->render() : null)
                 ->summary($route->actionDocBlock?->getSummary() !== '' ? $route->actionDocBlock?->getSummary() : null)
@@ -115,7 +124,10 @@ class OperationsBuilder
                 $operation = $operation->security(...$security);
             }
 
-            $this->extensionsBuilder->build($operation, $route->actionAttributes);
+            /** @var Collection<TKey, TValue> $action_attributes */
+            $action_attributes = $route->actionAttributes;
+
+            $this->extensionsBuilder->build($operation, $action_attributes);
 
             $operations[] = $operation;
         }

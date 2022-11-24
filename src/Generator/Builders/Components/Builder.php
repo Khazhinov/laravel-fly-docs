@@ -10,6 +10,12 @@ use ReflectionClass;
 
 abstract class Builder
 {
+    /**
+     * @param  string  $needle_type
+     * @param  FlyDocsConfigDTO  $config
+     * @param  string $documentation
+     * @return Collection
+     */
     protected function getAllClasses(string $needle_type, FlyDocsConfigDTO $config, string $documentation): Collection
     {
         return collect($config->documentations[$documentation]->locations->getClearDirectoriesByType($needle_type))
@@ -20,6 +26,7 @@ abstract class Builder
             })
             ->flatten()
             ->filter(function (string $class) use ($config, $documentation) {
+                /** @phpstan-ignore-next-line */
                 $reflectionClass = new ReflectionClass($class);
                 $collectionAttributes = $reflectionClass->getAttributes(CollectionAttribute::class);
 
@@ -34,9 +41,8 @@ abstract class Builder
                 /** @var CollectionAttribute $collectionAttribute */
                 $collectionAttribute = $collectionAttributes[0]->newInstance();
 
-                return
-                    $collectionAttribute->name === ['*'] ||
-                    in_array($documentation, $collectionAttribute->name ?? [], true);
+                /** @phpstan-ignore-next-line */
+                return $collectionAttribute->name === ['*'] || in_array($documentation, $collectionAttribute->name ?? [], true);
             });
     }
 }

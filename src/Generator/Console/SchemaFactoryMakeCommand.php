@@ -21,7 +21,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Schema factory class';
     protected $type = 'Schema';
 
-    protected function buildClass($name)
+    protected function buildClass($name): string
     {
         $output = parent::buildClass($name);
         $output = str_replace('DummySchema', Str::replaceLast('Schema', '', class_basename($name)), $output);
@@ -33,7 +33,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
         return $output;
     }
 
-    protected function buildModel($output, $model)
+    protected function buildModel(mixed $output, mixed $model): string
     {
         $namespace = app()::VERSION[0] >= 8 ? $this->laravel->getNamespace().'Models\\' : $this->laravel->getNamespace();
         $model = Str::start($model, $namespace);
@@ -141,6 +141,9 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
         return $name.'Schema';
     }
 
+    /**
+     * @return array<array<mixed>>
+     */
     protected function getOptions(): array
     {
         return [

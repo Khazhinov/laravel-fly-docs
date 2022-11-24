@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Khazhinov\LaravelFlyDocs\Services\DTO\Config;
 
@@ -25,12 +25,8 @@ class FlyDocsConfigSingleDTO extends DataTransferObject
     public array $tags = [];
 
     public FlyDocsConfigSingleRoutesDTO $routes;
-
     public FlyDocsConfigSinglePathsDTO $paths;
-
     public FlyDocsConfigSingleSecurityDefinitionDTO $security_definitions;
-
     public FlyDocsConfigSingleUIDTO $ui;
-
     public FlyDocsConfigSingleLocationsDTO $locations;
 }

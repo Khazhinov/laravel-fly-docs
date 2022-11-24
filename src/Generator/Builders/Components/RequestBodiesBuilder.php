@@ -8,6 +8,11 @@ use Khazhinov\LaravelFlyDocs\Services\DTO\Config\FlyDocsConfigDTO;
 
 class RequestBodiesBuilder extends Builder
 {
+    /**
+     * @param  FlyDocsConfigDTO  $config
+     * @param  string  $documentation
+     * @return array<mixed>
+     */
     public function build(FlyDocsConfigDTO $config, string $documentation): array
     {
         return $this->getAllClasses('request_bodies', $config, $documentation)

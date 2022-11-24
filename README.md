@@ -7,7 +7,20 @@
 
 ## Описание
 
-В разработке
+Данная библиотека является форком [vyuldashev/laravel-openapi](https://github.com/vyuldashev/laravel-openapi).
+Документация по основным сущностям доступна по [ссылке](https://vyuldashev.github.io/laravel-openapi/).
+
+Обратите внимание, что Artisan команды FlyDocs начинаются с *fly-docs:*, например:
+
+Команда в исходной библиотеке:
+```bash
+$ php artisan openapi:make-requestbody StoreUser
+```
+
+Команда FlyDocs:
+```bash
+$ php artisan fly-docs:make-requestbody StoreUser
+```
 
 ## Установка
 
@@ -17,6 +30,9 @@
 $ composer require khazhinov/laravel-fly-docs
 ```
 
+## Благодарности ❤️
+
+Большая благодарность [Владимиру Юлдашеву](https://github.com/vyuldashev), чья библиотека [vyuldashev/laravel-openapi](https://github.com/vyuldashev/laravel-openapi) стала фундаментом данного решения.
 
 ## Лицензия
 

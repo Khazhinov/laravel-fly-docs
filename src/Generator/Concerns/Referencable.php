@@ -16,6 +16,7 @@ trait Referencable
 {
     public static function ref(?string $objectId = null): Schema
     {
+        /** @var CallbackFactory|ParametersFactory|RequestBodyFactory|ResponseFactory|SchemaFactory|SecuritySchemeFactory $instance */
         $instance = app(static::class);
 
         if (! $instance instanceof Reusable) {
@@ -38,6 +39,7 @@ trait Referencable
             $baseRef = '#/components/securitySchemes/';
         }
 
+        /** @phpstan-ignore-next-line */
         return Schema::ref($baseRef.$instance->build()->objectId, $objectId);
     }
 }

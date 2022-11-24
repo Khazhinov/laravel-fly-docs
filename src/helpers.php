@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -31,13 +31,14 @@ if (! function_exists('fly_docs_swagger_ui_dist_path')) {
 if (! function_exists('fly_docs_swagger_asset')) {
     /**
      * @param  string  $documentation
-     * @param $asset
+     * @param  string|null  $asset
      * @return string
      * @throws ReflectionException
      * @throws UnknownProperties
      */
-    function fly_docs_swagger_asset(string $documentation, $asset): string
+    function fly_docs_swagger_asset(string $documentation, ?string $asset = null): string
     {
+        /** @var string $file */
         $file = fly_docs_swagger_ui_dist_path($documentation, $asset);
 
         if (! file_exists($file)) {

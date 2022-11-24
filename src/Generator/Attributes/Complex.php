@@ -10,9 +10,13 @@ use Khazhinov\LaravelFlyDocs\Generator\Factories\ComplexFactory;
 class Complex
 {
     public string $factory;
+
+    /**
+     * @var array<int|string, mixed>
+     */
     public array $arguments = [];
 
-    public function __construct(string $factory, ...$arguments)
+    public function __construct(string $factory, mixed ...$arguments)
     {
         $this->factory = class_exists($factory) ? $factory : app()->getNamespace().'OpenApi\\Complexes\\'.$factory;
 

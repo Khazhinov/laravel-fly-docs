@@ -10,6 +10,9 @@ class Collection
     /** @var string|array<string> */
     public array|string $name;
 
+    /**
+     * @param  string|array<mixed>  $name
+     */
     public function __construct(string|array $name = 'default')
     {
         $this->name = $name;

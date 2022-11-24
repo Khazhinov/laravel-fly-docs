@@ -10,9 +10,7 @@ use Khazhinov\LaravelFlyDocs\Generator\Factories\ResponseFactory;
 class Response
 {
     public string $factory;
-
     public ?int $statusCode;
-
     public ?string $description;
 
     public function __construct(string $factory, int $statusCode = null, string $description = null)

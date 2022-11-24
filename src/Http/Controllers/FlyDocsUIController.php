@@ -1,14 +1,17 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Khazhinov\LaravelFlyDocs\Http\Controllers;
 
+use GoldSpecDigital\ObjectOrientedOAS\OpenApi;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Response as ResponseFacade;
 use Khazhinov\LaravelFlyDocs\Generator\Generator;
@@ -22,14 +25,21 @@ class FlyDocsUIController extends Controller
      * @throws ReflectionException
      * @throws UnknownProperties
      */
-    public function getDefaultDocumentation()
+    public function getDefaultDocumentation(): Redirector|RedirectResponse
     {
         $config = \Khazhinov\LaravelFlyDocs\Services\ConfigFactory::getInstance();
 
         return redirect(route("fly-docs.{$config->getConfig()->default}.docs_ui"));
     }
 
-    public function getApiDocs(Generator $generator, Request $request)
+    /**
+     * @param  Generator  $generator
+     * @param  Request  $request
+     * @return OpenApi
+     * @throws ReflectionException
+     * @throws UnknownProperties
+     */
+    public function getApiDocs(Generator $generator, Request $request): OpenApi
     {
         $documentation = $this->getDocumentationFromRequest($request);
 
@@ -117,8 +127,10 @@ class FlyDocsUIController extends Controller
         $fileSystem = new Filesystem();
         /** @var string $documentation */
         $documentation = $this->getDocumentationFromRequest($request);
+        /** @var string $path */
+        $path = fly_docs_swagger_ui_dist_path($documentation, 'oauth2-redirect.html');
 
-        return $fileSystem->get(fly_docs_swagger_ui_dist_path($documentation, 'oauth2-redirect.html'));
+        return $fileSystem->get($path);
     }
 
     /**
