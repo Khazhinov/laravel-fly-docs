@@ -108,7 +108,7 @@ return [
         */
         'security_definitions' => [
             'security_schemes' => [
-//                GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement::create()->securityScheme('JWT'),
+//                \App\OpenApi\SecuritySchemes\SecuritySchemeContainer::class,
             ],
         ],
 

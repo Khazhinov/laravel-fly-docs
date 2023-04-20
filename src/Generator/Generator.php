@@ -6,6 +6,7 @@ use GoldSpecDigital\ObjectOrientedOAS\OpenApi;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\ComponentsBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\InfoBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\PathsBuilder;
+use Khazhinov\LaravelFlyDocs\Generator\Builders\SecuritySchemesContainerContract;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\ServersBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\TagsBuilder;
 use ReflectionException;
@@ -37,6 +38,15 @@ class Generator
         $paths = $this->pathsBuilder->build($config_factory->getConfig(), $documentation);
         $components = $this->componentsBuilder->build($config_factory->getConfig(), $documentation);
 
+        $security_schemes = [];
+        foreach ($documentation_config->security_definitions->security_schemes as $security_scheme_container_class) {
+            if (! is_a($security_scheme_container_class, Builders\Components\SecuritySchemesContainerContract::class, true)) {
+                throw new SecuritySchemeIncorrectContainerException();
+            }
+
+            $security_schemes += $security_scheme_container_class::getSecuritySchemes();
+        }
+
         $openApi = OpenApi::create()
             ->openapi(OpenApi::OPENAPI_3_0_2)
             ->info($info)
@@ -44,7 +54,7 @@ class Generator
             ->tags(...$tags)
             ->paths(...$paths)
             ->components($components)
-            ->security(...$documentation_config->security_definitions->security_schemes)
+            ->security(...$security_schemes)
         ;
 
         foreach ($documentation_config->info->extensions as $key => $value) {
