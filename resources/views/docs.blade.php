@@ -47,6 +47,11 @@
             @endif
             requestInterceptor: function (request) {
                 request.headers['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+                @if(app()->hasDebugModeEnabled())
+                let url = new URL(request.url);
+                url.searchParams.set('XDEBUG_SESSION_START', 'PHPSTORM');
+                request.url = url
+                @endif
                 return request;
             },
             presets: [
@@ -63,10 +68,6 @@
             persistAuthorization: "{!! $documentation_config->ui->persist_authorization ? 'true' : 'false' !!}",
         })
         window.ui = ui
-        {{-- TODO: адаптировать под новый тип схем безопасности --}}
-{{--        @if( $documentation_config->security_definitions->hasOAuth2Type())--}}
-{{--        ui.initOAuth()--}}
-{{--        @endif--}}
     }
 </script>
 </body>
