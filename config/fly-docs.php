@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 return [
     'default' => 'latest',
+
+    'path' => 'fly-docs',
+
     'documentations' => [
         'latest' => [
             'info' => [
@@ -27,6 +30,7 @@ return [
             ],
         ],
     ],
+
     'default_documentation_body' => [
         'info' => [
             'title' => 'FlyDocs Swagger UI - Version: Latest',
