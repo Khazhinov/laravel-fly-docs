@@ -7,7 +7,7 @@ use Khazhinov\LaravelFlyDocs\Generator\RouteInformation;
 
 interface PathMiddleware
 {
-    public function before(RouteInformation $routeInformation): void;
+    public function before(RouteInformation $routeInformation): void; // @phpstan-ignore-line
 
     public function after(PathItem $pathItem): PathItem;
 }

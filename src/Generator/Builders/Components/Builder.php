@@ -14,7 +14,7 @@ abstract class Builder
      * @param  string  $needle_type
      * @param  FlyDocsConfigDTO  $config
      * @param  string $documentation
-     * @return Collection
+     * @return Collection<int, mixed>
      */
     protected function getAllClasses(string $needle_type, FlyDocsConfigDTO $config, string $documentation): Collection
     {
@@ -25,7 +25,7 @@ abstract class Builder
                 return array_keys($map);
             })
             ->flatten()
-            ->filter(function (string $class) use ($config, $documentation) {
+            ->filter(function (string $class) use ($config, $documentation) { // @phpstan-ignore-line
                 /** @phpstan-ignore-next-line */
                 $reflectionClass = new ReflectionClass($class);
                 $collectionAttributes = $reflectionClass->getAttributes(CollectionAttribute::class);

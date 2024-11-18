@@ -34,10 +34,15 @@ class ComponentsBuilder
 
     public function build(FlyDocsConfigDTO $config, string $documentation): ?Components
     {
+        /** @var \GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem[] $callbacks */
         $callbacks = $this->callbacksBuilder->build($config, $documentation);
+        /** @var \GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody[] $requestBodies */
         $requestBodies = $this->requestBodiesBuilder->build($config, $documentation);
+        /** @var \GoldSpecDigital\ObjectOrientedOAS\Objects\Response[] $responses */
         $responses = $this->responsesBuilder->build($config, $documentation);
+        /** @var \GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract[] $schemas */
         $schemas = $this->schemasBuilder->build($config, $documentation);
+        /** @var \GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme[] $securitySchemes */
         $securitySchemes = $this->securitySchemesBuilder->build($config, $documentation);
 
         $components = Components::create();

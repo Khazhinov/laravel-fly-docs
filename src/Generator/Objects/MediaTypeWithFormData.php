@@ -8,7 +8,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 
 class MediaTypeWithFormData extends MediaType
 {
-    const MEDIA_TYPE_FORM_DATA = 'multipart/form-data';
+    const string MEDIA_TYPE_FORM_DATA = 'multipart/form-data';
 
     /**
      * @param string|null $objectId

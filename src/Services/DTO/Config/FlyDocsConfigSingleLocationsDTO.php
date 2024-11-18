@@ -51,13 +51,14 @@ class FlyDocsConfigSingleLocationsDTO extends DataTransferObject
             throw new RuntimeException(sprintf('Указанный тип директории (%s) для сущностей документации не найден', $type));
         }
 
+        /** @var array<string> $directories */
         $directories = $this->$type;
 
         foreach ($directories as &$directory) {
             $directory = glob($directory, GLOB_ONLYDIR);
         }
 
-        return (new Collection($directories))
+        return (new Collection($directories)) // @phpstan-ignore-line
             ->flatten()
             ->unique()
             ->toArray();

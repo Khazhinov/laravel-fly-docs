@@ -26,8 +26,11 @@ class ConfigFactory extends Singleton
      */
     protected function generateConfig(): FlyDocsConfigDTO
     {
+        /** @var array<string, array<string, mixed>> $global_config */
         $global_config = config('fly-docs');
+        /** @var array<mixed> $default_documentation_body */
         $default_documentation_body = helper_array_get($global_config, 'default_documentation_body', []);
+        /** @var array<string, array<mixed>> $documentations */
         $documentations = helper_array_get($global_config, 'documentations', []);
         foreach ($documentations as $documentation_name => $documentation_body) {
             $global_config['documentations'][$documentation_name] = $this->mergeConfig($default_documentation_body, $documentation_body);
@@ -86,11 +89,14 @@ class ConfigFactory extends Singleton
         $merged = $defaults;
 
         foreach ($config as $key => &$value) {
+            /** @var array<mixed> $value */
             if (isset($defaults[$key])
-                && $this->isAssociativeArray($defaults[$key])
-                && $this->isAssociativeArray($value)
             ) {
-                $merged[$key] = $this->mergeConfig($defaults[$key], $value);
+                /** @var array<mixed> $extracted */
+                $extracted = $defaults[$key];
+                if ($this->isAssociativeArray($extracted) && $this->isAssociativeArray($value)) {
+                    $merged[$key] = $this->mergeConfig($extracted, $value);
+                }
 
                 continue;
             }

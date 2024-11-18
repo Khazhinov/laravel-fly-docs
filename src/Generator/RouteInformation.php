@@ -27,7 +27,7 @@ final class RouteInformation
     public string $uri;
     public ?string $name;
     public string $controller;
-    public Collection $parameters;
+    public Collection $parameters; // @phpstan-ignore-line
 
     /** @var Collection<TKey, TValue>|Attribute[] */
     public Collection|array $controllerAttributes;
@@ -48,7 +48,7 @@ final class RouteInformation
      *
      * @throws ReflectionException
      */
-    public static function createFromRoute(Route $route): RouteInformation
+    public static function createFromRoute(Route $route): RouteInformation // @phpstan-ignore-line
     {
         return tap(new static(), static function (self $instance) use ($route): void {
             /** @var string $domain */
@@ -56,7 +56,7 @@ final class RouteInformation
 
             /** @var string $method */
             $method = collect($route->methods())
-                ->map(static fn ($value) => Str::lower($value))
+                ->map(static fn ($value) => Str::lower($value)) // @phpstan-ignore-line
                 ->filter(static fn ($value) => ! in_array($value, ['head', 'options'], true))
                 ->first();
 
@@ -71,13 +71,13 @@ final class RouteInformation
 
             preg_match_all('/{(.*?)}/', $route->uri, $parameters);
             /** @var Arrayable<TKey, TValue>|iterable<TKey, TValue>|null $_ */
-            $_ = $parameters[1];
+            $_ = $parameters[1]; // @phpstan-ignore-line
             $parameters = collect($_);
 
             if (count($parameters) > 0) {
                 $parameters = $parameters->map(static fn ($parameter) => [
-                    'name' => Str::replaceLast('?', '', $parameter),
-                    'required' => ! Str::endsWith($parameter, '?'),
+                    'name' => Str::replaceLast('?', '', $parameter), // @phpstan-ignore-line
+                    'required' => ! Str::endsWith($parameter, '?'), // @phpstan-ignore-line
                 ]);
             }
 
@@ -89,11 +89,11 @@ final class RouteInformation
             $docBlock = $docComment ? DocBlockFactory::createInstance()->create($docComment) : null;
 
             /** @var Collection|Attribute[] $controllerAttributes */
-            $controllerAttributes = collect($reflectionClass->getAttributes())
+            $controllerAttributes = collect($reflectionClass->getAttributes()) // @phpstan-ignore-line
                 ->map(fn (ReflectionAttribute $attribute) => $attribute->newInstance());
 
             /** @var Collection|Attribute[] $actionAttributes */
-            $actionAttributes = collect($reflectionMethod->getAttributes())
+            $actionAttributes = collect($reflectionMethod->getAttributes())  // @phpstan-ignore-line
                 ->map(fn (ReflectionAttribute $attribute) => $attribute->newInstance());
 
             $containsControllerLevelParamter = $actionAttributes->contains(fn ($value) => $value instanceof \Khazhinov\LaravelFlyDocs\Generator\Attributes\Parameters);

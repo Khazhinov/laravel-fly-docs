@@ -102,6 +102,7 @@ class FlyDocsUIController extends Controller
         $request_route = $request->route();
 
         if ($request_route instanceof Route) {
+            /** @var array<string, string> $action_info */
             $action_info = $request_route->getAction();
 
             if (array_key_exists('as', $action_info)) {

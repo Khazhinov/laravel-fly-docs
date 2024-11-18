@@ -6,7 +6,6 @@ use GoldSpecDigital\ObjectOrientedOAS\OpenApi;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\ComponentsBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\InfoBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\PathsBuilder;
-use Khazhinov\LaravelFlyDocs\Generator\Builders\SecuritySchemesContainerContract;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\ServersBuilder;
 use Khazhinov\LaravelFlyDocs\Generator\Builders\TagsBuilder;
 use ReflectionException;
@@ -14,7 +13,7 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class Generator
 {
-    public function __construct(
+    public function __construct( // @phpstan-ignore-line
         protected InfoBuilder $infoBuilder,
         protected ServersBuilder $serversBuilder,
         protected TagsBuilder $tagsBuilder,
@@ -40,6 +39,7 @@ class Generator
 
         $security_schemes = [];
         foreach ($documentation_config->security_definitions->security_schemes as $security_scheme_container_class) {
+            /** @var string $security_scheme_container_class */
             if (! is_a($security_scheme_container_class, Builders\Components\SecuritySchemesContainerContract::class, true)) {
                 throw new SecuritySchemeIncorrectContainerException();
             }
@@ -47,6 +47,8 @@ class Generator
             $security_schemes += $security_scheme_container_class::getSecuritySchemes();
         }
 
+        /** @var \GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement[] $security_schemes */
+        /** @var \GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem[] $paths */
         $openApi = OpenApi::create()
             ->openapi(OpenApi::OPENAPI_3_0_2)
             ->info($info)

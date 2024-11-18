@@ -7,7 +7,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 class Collection
 {
-    /** @var string|array<string> */
+    /** @var string|array<mixed> */
     public array|string $name;
 
     /**

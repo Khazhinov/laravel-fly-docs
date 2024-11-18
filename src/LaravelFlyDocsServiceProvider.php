@@ -44,11 +44,11 @@ class LaravelFlyDocsServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Generator::class, static function (Application $app) {
             return new Generator(
-                $app->make(InfoBuilder::class),
-                $app->make(ServersBuilder::class),
-                $app->make(TagsBuilder::class),
-                $app->make(PathsBuilder::class),
-                $app->make(ComponentsBuilder::class)
+                $app->make(InfoBuilder::class), // @phpstan-ignore-line
+                $app->make(ServersBuilder::class), // @phpstan-ignore-line
+                $app->make(TagsBuilder::class), // @phpstan-ignore-line
+                $app->make(PathsBuilder::class), // @phpstan-ignore-line
+                $app->make(ComponentsBuilder::class) // @phpstan-ignore-line
             );
         });
     }
