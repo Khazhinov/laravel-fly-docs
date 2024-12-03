@@ -13,27 +13,27 @@ use Khazhinov\LaravelFlyDocs\Generator\Generator;
  */
 class GenerateCommand extends Command
 {
-    protected $signature = 'fly-docs:generate {collection=default}';
+    protected $signature = 'fly-docs:generate {documentation?}';
     protected $description = 'Generate OpenAPI specification';
 
     public function handle(Generator $generator): void
     {
-        /** @var array<mixed> $collections */
-        $collections = config('openapi.collections');
+        /** @var array<mixed> $documentations */
+        $documentations = config('fly-docs.documentations');
 
-        /** @var string $collection */
-        $collection = $this->argument('collection');
-        $collectionExists = collect($collections)->has($collection);
+        /** @var string $documentation */
+        $documentation = $this->argument('documentation') ?? config('fly-docs.default');
+        $documentationExists = collect($documentations)->has($documentation);
 
-        if (! $collectionExists) {
-            $this->error(sprintf('Collection "%s" does not exist.', $collection));
+        if (! $documentationExists) {
+            $this->error(sprintf('Documentation "%s" does not exist.', $documentation));
 
             return;
         }
 
         $this->line(
             $generator
-                ->generate($collection)
+                ->generate($documentation)
                 ->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
         );
     }
